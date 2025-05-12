@@ -1,0 +1,22 @@
+version: "3.8"
+
+services:
+  bot:
+    image: vinstp/yuki_adblock_server:latest
+
+    restart: always
+
+#    build:
+#      context: ./
+#      dockerfile: Dockerfile
+
+    deploy:
+      replicas: 1
+      restart_policy:
+        condition: on-failure
+      placement:
+        constraints:
+          - node.hostname == server-home
+
+    volumes:
+      - /home/stepan-vinokurov/Data/yuki_adblock_bot_db:/home/db
